@@ -31,7 +31,9 @@ public class GoldJob implements IJob {
             new DemandVolatilityDailyAggregation(),
             new DemandVolatilityHourlyAggregation(),
             new RevenueVolatilityDailyAggregation(),
-            new RevenueVolatilityWeeklyAggregation());
+            new RevenueVolatilityWeeklyAggregation(),
+            new DailyMLDatasetAggregation(),
+            new DailyMLDatasetAggregation());
 
     GoldAggregationRunner runner = new GoldAggregationRunner(aggregations);
     runner.run(df);
