@@ -23,8 +23,11 @@ public class GoldJob implements IJob {
   @Override
   public void run() {
     Dataset<Row> df = spark.read().parquet("data/YellowTaxiTripRecord/silver/silver.parquet");
+
     List<IAggregation> aggregations =
         List.of(
+            new AirportRevenuePerHourAggregation(),
+            new DriverCheatSheetAggregation(),
             new TripFactHourlyAggregation(),
             new TripFactDailyAggregation(),
             new ZoneDemandHourlyAggregation(),
@@ -33,9 +36,11 @@ public class GoldJob implements IJob {
             new RevenueVolatilityDailyAggregation(),
             new RevenueVolatilityWeeklyAggregation(),
             new DailyMLDatasetAggregation(),
-            new DailyMLDatasetAggregation());
+            new DriverCheatSheetAggregation(),
+            new FleetSupplyDemandAggregation(),
+            new ShiftChangeSimulationAggregation(),
+            new TipProfileAggregation());
 
-    GoldAggregationRunner runner = new GoldAggregationRunner(aggregations);
-    runner.run(df);
+    new GoldAggregationRunner(aggregations).run(df);
   }
 }
